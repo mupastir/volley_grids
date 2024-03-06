@@ -1,0 +1,70 @@
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "volley-grids"
+description = "Competition grids for volleyball tournaments"
+authors = [
+    {name = 'Oleh Perlovskyi', email = 'mupastir@gmail.com'}
+]
+license = "MIT"
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: Implementation :: CPython',
+  'Programming Language :: Python :: Implementation :: PyPy',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3 :: Only',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Intended Audience :: Developers',
+  'Intended Audience :: Information Technology',
+  'Intended Audience :: System Administrators',
+  'License :: OSI Approved :: MIT License',
+  'Operating System :: Unix',
+  'Operating System :: POSIX :: Linux',
+  'Environment :: Console',
+  'Environment :: MacOS X',
+  'Framework :: Hypothesis',
+  'Framework :: Pydantic',
+  'Topic :: Software Development :: Libraries :: Python Modules',
+  'Topic :: Other/Nonlisted Topic',
+]
+requires-python = '>=3.8'
+dependencies = [
+    "pydantic==2.6.3",
+]
+dynamic = ['version', 'readme']
+
+[project.urls]
+Homepage = 'https://github.com/mupastir/volley-grids'
+Documentation = 'https://docs.volley-grids.dev'
+Funding = 'https://github.com/sponsors/mupastir'
+Source = 'https://github.com/mupastir/volley-grids'
+Changelog = 'https://docs.volley-grids.dev/latest/changelog/'
+
+[tool.ruff]
+line-length = 120
+target-version = 'py38'
+extend-exclude = ['tests/mypy/outputs']
+
+[tool.ruff.lint]
+extend-select = ['Q', 'RUF100', 'C90', 'UP', 'I', 'D', 'T']
+extend-ignore = ['D105', 'D107', 'D205', 'D415']
+flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}
+isort = { known-first-party = ['volley_grids', 'tests'] }
+mccabe = { max-complexity = 14 }
+pydocstyle = { convention = 'google' }
+
+[tool.ruff.lint.per-file-ignores]
+'docs/*' = ['D']
+'tests/*' = ['D']
+
+[tool.ruff.format]
+quote-style = 'single'
