@@ -29,13 +29,22 @@ class Team(BaseModel):
         """
         return self.player_one.age + self.player_two.age
 
+    @property
+    def points(self) -> int:
+        """Return sum of the points of the team
+
+        Returns:
+            int: sum of the points of the team
+        """
+        return self.player_one.points + self.player_two.points
+
 
 class WomenTeam(Team):
     """Model of the team, which both players sex are 'W'"""
 
     player_one: WomenPlayer
     player_two: WomenPlayer
-    gender = 'Women`s'
+    gender: Literal['Women`s'] = 'Women`s'
 
 
 class MenTeam(Team):
@@ -43,7 +52,7 @@ class MenTeam(Team):
 
     player_one: MenPlayer
     player_two: MenPlayer
-    gender = 'Men`s'
+    gender: Literal['Men`s'] = 'Men`s'
 
 
 class MixedTeam(Team):
@@ -51,4 +60,29 @@ class MixedTeam(Team):
 
     player_one: WomenPlayer
     player_two: MenPlayer
-    gender = 'Mixed'
+    gender: Literal['Mixed'] = 'Mixed'
+
+
+class BlankTeam(Team):
+    """Model of the blank team which is used in the tournament to fill the empty slots for minimal participants"""
+
+    player_one: None = None
+    player_two: None = None
+
+    @property
+    def age(self) -> int:
+        """Return average age of the team
+
+        Returns:
+            int: sum age of the team, always 0
+        """
+        return 0
+
+    @property
+    def points(self) -> int:
+        """Return sum of the points of the blank team
+
+        Returns:
+            int: sum of the points of the team, always 0
+        """
+        return 0
