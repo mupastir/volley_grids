@@ -29,7 +29,7 @@ def test_success_single_elimination_for_grid_of_eight(gender: str, team_factory)
     seeder = SingleEliminationSeeder(participants=participants, tournament=tournament, match_type='full')
     matches = seeder.seed()
     sorted_participants = sorted(participants, key=lambda x: x.points, reverse=True)
-    assert len(matches) == 7
+    assert len(matches) == 8
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
     assert isinstance(matches[0].team_two, BlankTeam)
@@ -39,7 +39,7 @@ def test_success_single_elimination_for_grid_of_eight(gender: str, team_factory)
     assert isinstance(matches[2].team_two, BlankTeam)
     assert matches[3].team_one == sorted_participants[3]
     assert matches[3].team_two == sorted_participants[4]
-    for i in range(5, 7):
+    for i in range(5, 8):
         assert matches[i].team_one is None
         assert matches[i].team_two is None
 
@@ -64,7 +64,7 @@ def test_success_single_elimination_for_grid_of_sixteen(gender: str, team_factor
     seeder = SingleEliminationSeeder(participants=participants, tournament=tournament, match_type='full')
     matches = seeder.seed()
     sorted_participants = sorted(participants, key=lambda x: x.points, reverse=True)
-    assert len(matches) == 15
+    assert len(matches) == 16
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
     assert isinstance(matches[0].team_two, BlankTeam)
@@ -82,7 +82,7 @@ def test_success_single_elimination_for_grid_of_sixteen(gender: str, team_factor
     assert matches[6].team_two == sorted_participants[9]
     assert matches[7].team_one == sorted_participants[7]
     assert matches[7].team_two == sorted_participants[8]
-    for i in range(8, 15):
+    for i in range(8, 16):
         assert matches[i].team_one is None
         assert matches[i].team_two is None
 
@@ -107,7 +107,7 @@ def test_success_single_elimination_for_grid_of_thirty_two(gender: str, team_fac
     seeder = SingleEliminationSeeder(participants=participants, tournament=tournament, match_type='full')
     matches = seeder.seed()
     sorted_participants = sorted(participants, key=lambda x: x.points, reverse=True)
-    assert len(matches) == 31
+    assert len(matches) == 32
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
     assert isinstance(matches[0].team_two, BlankTeam)
@@ -141,6 +141,6 @@ def test_success_single_elimination_for_grid_of_thirty_two(gender: str, team_fac
     assert matches[14].team_two == sorted_participants[17]
     assert matches[15].team_one == sorted_participants[15]
     assert matches[15].team_two == sorted_participants[16]
-    for i in range(16, 31):
+    for i in range(16, 32):
         assert matches[i].team_one is None
         assert matches[i].team_two is None

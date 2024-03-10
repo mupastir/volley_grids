@@ -37,11 +37,20 @@ class BaseMatch(BaseModel):
         team_one:          first team of the match
         team_two:          second team of the match
         score_team_one:    score of the match
-        score_team_two:    score of the match
+        score_team_two:    score of the match\
+        winner:            winner of the match
+        court_number:      number of the court where the match is played
+        match_number:      number of the match
+        stage:             stage of the tournament
+        start_time:        start time of the match
+        end_time:          end time of the match
+        type:              type of the match
     """
 
     team_one: Team | None = None
     team_two: Team | None = None
+    team_one_match_from: int | None = None
+    team_two_match_from: int | None = None
     score_team_one: int
     score_team_two: int
     winner: Team | None = None
