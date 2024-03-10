@@ -16,6 +16,7 @@ class BaseSeeder(ABC):
         Args:
             tournament: Tournament to seed
             participants: Participants of the tournament
+            match_type: Type of the match, full or short
         """
         self.tournament = tournament
         self.participants = participants

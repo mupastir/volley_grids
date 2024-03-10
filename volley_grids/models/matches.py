@@ -24,6 +24,8 @@ TOURNAMENT_STAGE: TypeAlias = Literal[
     'R48',
     '49-64',
     'R64',
+    '65-128',
+    'R128',
 ]
 MATCH_TYPE: TypeAlias = Literal['full', 'short']
 

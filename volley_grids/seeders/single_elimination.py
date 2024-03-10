@@ -13,12 +13,8 @@ class SingleEliminationSeeder(BaseSeeder):
     more info: https://en.wikipedia.org/wiki/Single-elimination_tournament
     """
 
-    grid_configurations = {
-        8: (('5-8', 4), ('SF', 2), ('F', 1)),
-        16: (('9-16', 8), ('5-8', 4), ('SF', 2), ('F', 1)),
-        32: (('17-32', 16), ('9-16', 8), ('5-8', 4), ('SF', 2), ('F', 1)),
-        64: (('33-64', 32), ('17-32', 16), ('9-16', 8), ('5-8', 4), ('SF', 2), ('F', 1)),
-    }
+    stages_map = {32: 'R64', 16: 'R32', 8: 'R16', 4: 'QF', 2: 'SF', 1: 'F'}
+    grid_configurations = {8, 16, 32}
     match_type_adapter = TypeAdapter(Match)
 
     def seed(self) -> list[Match]:
@@ -41,7 +37,7 @@ class SingleEliminationSeeder(BaseSeeder):
         matches = list(
             chain(
                 self.first_round_matches_generator(best_ranked_teams, least_ranked_teams, grid_dimension),
-                self.other_round_matches_generator(participants_number, grid_dimension),
+                self.other_round_matches_generator(grid_dimension),
             )
         )
         return matches
@@ -55,7 +51,7 @@ class SingleEliminationSeeder(BaseSeeder):
         Returns:
             int: dimension of the grid
         """
-        for grid_dimension in self.grid_configurations.keys():
+        for grid_dimension in self.grid_configurations:
             min_grid = grid_dimension - participants_number
             if min_grid >= 0:
                 return grid_dimension
@@ -86,6 +82,7 @@ class SingleEliminationSeeder(BaseSeeder):
             Match: match of the tournament
 
         """
+        matches_number = grid_dimension // 2
         for match_number, (team_best_rank, team_lowest_rank) in enumerate(zip(best_ranked_teams, least_ranked_teams)):
             yield self.match_type_adapter.validate_python(
                 {
@@ -93,29 +90,32 @@ class SingleEliminationSeeder(BaseSeeder):
                     'team_two': team_lowest_rank,
                     'type': self.match_type,
                     'match_number': match_number + 1,
-                    'stage': self.grid_configurations[grid_dimension][0][0],
+                    'stage': self.stages_map[matches_number],
                 }
             )
 
-    def other_round_matches_generator(
-        self, participants_number: int, grid_dimension: int
-    ) -> Generator[Match, None, None]:
+    def other_round_matches_generator(self, grid_dimension: int) -> Generator[Match, None, None]:
         """Generate the other round matches
 
         Args:
-            participants_number: number of the participants
             grid_dimension: dimension of the grid
 
         Yields:
             Match: match of the tournament
 
         """
-        for match_number in range(participants_number + 1, participants_number * 2 - 1):
-            yield self.match_type_adapter.validate_python(
-                {
-                    'type': self.match_type,
-                    'match_number': match_number,
-                    # Fixme: match_number >> 2 doesn't work as expected
-                    'stage': self.grid_configurations[grid_dimension][(match_number >> 2) - 1][0],
-                }
-            )
+        next_stage_matches_number = grid_dimension // 4
+        start_match_number = grid_dimension // 2 + 1
+        end_match_number = start_match_number + next_stage_matches_number
+        while next_stage_matches_number >= 1:
+            for match_number in range(start_match_number, end_match_number):
+                yield self.match_type_adapter.validate_python(
+                    {
+                        'type': self.match_type,
+                        'match_number': match_number,
+                        'stage': self.stages_map[next_stage_matches_number],
+                    }
+                )
+            next_stage_matches_number //= 2
+            start_match_number = end_match_number
+            end_match_number += next_stage_matches_number
