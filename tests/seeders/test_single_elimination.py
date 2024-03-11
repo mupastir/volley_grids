@@ -4,7 +4,7 @@ import pytest
 
 from tests.factories import MenTeamFactory, MixedTeamFactory, WomenTeamFactory
 from volley_grids.models.matches import FullMatch
-from volley_grids.models.teams import BlankTeam
+from volley_grids.models.teams import ByeTeam
 from volley_grids.models.tournaments import Tournament
 from volley_grids.seeders.single_elimination import SingleEliminationSeeder
 
@@ -32,11 +32,11 @@ def test_success_single_elimination_for_grid_of_eight(gender: str, team_factory)
     assert len(matches) == 8
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
-    assert isinstance(matches[0].team_two, BlankTeam)
+    assert isinstance(matches[0].team_two, ByeTeam)
     assert matches[1].team_one == sorted_participants[1]
-    assert isinstance(matches[1].team_two, BlankTeam)
+    assert isinstance(matches[1].team_two, ByeTeam)
     assert matches[2].team_one == sorted_participants[2]
-    assert isinstance(matches[2].team_two, BlankTeam)
+    assert isinstance(matches[2].team_two, ByeTeam)
     assert matches[3].team_one == sorted_participants[3]
     assert matches[3].team_two == sorted_participants[4]
     for i in range(5, 8):
@@ -67,17 +67,17 @@ def test_success_single_elimination_for_grid_of_sixteen(gender: str, team_factor
     assert len(matches) == 16
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
-    assert isinstance(matches[0].team_two, BlankTeam)
+    assert isinstance(matches[0].team_two, ByeTeam)
     assert matches[1].team_one == sorted_participants[1]
-    assert isinstance(matches[1].team_two, BlankTeam)
+    assert isinstance(matches[1].team_two, ByeTeam)
     assert matches[2].team_one == sorted_participants[2]
-    assert isinstance(matches[2].team_two, BlankTeam)
+    assert isinstance(matches[2].team_two, ByeTeam)
     assert matches[3].team_one == sorted_participants[3]
-    assert isinstance(matches[3].team_two, BlankTeam)
+    assert isinstance(matches[3].team_two, ByeTeam)
     assert matches[4].team_one == sorted_participants[4]
-    assert isinstance(matches[4].team_two, BlankTeam)
+    assert isinstance(matches[4].team_two, ByeTeam)
     assert matches[5].team_one == sorted_participants[5]
-    assert isinstance(matches[5].team_two, BlankTeam)
+    assert isinstance(matches[5].team_two, ByeTeam)
     assert matches[6].team_one == sorted_participants[6]
     assert matches[6].team_two == sorted_participants[9]
     assert matches[7].team_one == sorted_participants[7]
@@ -110,9 +110,9 @@ def test_success_single_elimination_for_grid_of_thirty_two(gender: str, team_fac
     assert len(matches) == 32
     assert all(isinstance(match, FullMatch) for match in matches)
     assert matches[0].team_one == sorted_participants[0]
-    assert isinstance(matches[0].team_two, BlankTeam)
+    assert isinstance(matches[0].team_two, ByeTeam)
     assert matches[1].team_one == sorted_participants[1]
-    assert isinstance(matches[1].team_two, BlankTeam)
+    assert isinstance(matches[1].team_two, ByeTeam)
     assert matches[2].team_one == sorted_participants[2]
     assert matches[2].team_two == sorted_participants[29]
     assert matches[3].team_one == sorted_participants[3]

@@ -4,7 +4,7 @@ from typing import Generator
 from pydantic import TypeAdapter
 
 from volley_grids.models.matches import Match
-from volley_grids.models.teams import BlankTeam, Team
+from volley_grids.models.teams import ByeTeam, Team
 from volley_grids.seeders.base_seeder import BaseSeeder
 
 
@@ -77,16 +77,16 @@ class SingleEliminationSeeder(BaseSeeder):
                 return grid_dimension
         raise ValueError(f'Participants number {participants_number} is too small for the tournament')
 
-    def _create_blank_teams(self, number: int) -> list[BlankTeam]:
+    def _create_blank_teams(self, number: int) -> list[ByeTeam]:
         """Create the blank teams
 
         Args:
             number: number of the blank teams
 
         Returns:
-            list[BlankTeam]: list of the blank teams
+            list[ByeTeam]: list of the blank teams
         """
-        return [BlankTeam(gender=self.tournament.restrictions.team_gender) for _ in range(number)]
+        return [ByeTeam(gender=self.tournament.restrictions.team_gender) for _ in range(number)]
 
     def first_round_matches_generator(
         self, best_ranked_teams: list[Team], least_ranked_teams: list[Team], grid_dimension: int

@@ -63,8 +63,14 @@ class MixedTeam(Team):
     gender: Literal['Mixed'] = 'Mixed'
 
 
-class BlankTeam(Team):
-    """Model of the blank team which is used in the tournament to fill the empty slots for minimal participants"""
+class ByeTeam(Team):
+    """Model of the bye team which is used in the tournament to fill the empty slots for minimal participants
+    https://en.wikipedia.org/wiki/Bye_(sports)
+
+    Attributes:
+        player_one: None
+        player_two: None
+    """
 
     player_one: None = None
     player_two: None = None
