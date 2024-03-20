@@ -13,7 +13,8 @@ class TournamentType(StrEnum):
     DE = 'Double Elimination'
     SE = 'Single Elimination'
     RR = 'Round Robin'
-    MS = 'Multi Stage'
+    CH24 = 'Challenge 24'
+    ELITE16 = 'Elite 16'
 
 
 TOURNAMENT_PLACES: TypeAlias = Literal['1', '2', '3', '4', '5-8', '9-12', '13-16', '17-24', '25-32', '33-48', '49-64']

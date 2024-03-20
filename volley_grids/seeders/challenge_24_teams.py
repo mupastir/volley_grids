@@ -20,8 +20,14 @@ class Challenge24Seeder(BaseSeeder):
             f'Pool {pool}': (sorted_by_rank[i], sorted_by_rank[11 - i], sorted_by_rank[12 + i], sorted_by_rank[23 - i])
             for i, pool in enumerate('ABCDEF')
         }
+        return list(
+            chain(
+                self.seed_pool_games(pools),
+                self.seed_playoff_games(),
+            )
+        )
 
-    def seed_pool_games(self, pools: dict[str, list[Team]]) -> Iterable[ProTourMatch]:
+    def seed_pool_games(self, pools: dict[str, tuple[Team, Team, Team, Team]]) -> Iterable[ProTourMatch]:
         """Seed the matches of the pool games"""
         first_games_in_pool = (
             ProTourMatch(
@@ -67,4 +73,63 @@ class Challenge24Seeder(BaseSeeder):
             second_games_in_pool,
             third_games_in_pool,
             fourth_games_in_pool,
+        )
+
+    def seed_playoff_games(self) -> Iterable[ProTourMatch]:
+        """Seed the matches of the playoff games"""
+        round_of_18 = (
+            ProTourMatch(
+                type=self.match_type,
+                match_number=match_number,
+                stage='R18',
+            )
+            for match_number in (25, 26)
+        )
+        round_of_16 = (
+            ProTourMatch(
+                type=self.match_type,
+                match_number=match_number,
+                stage='R16',
+            )
+            for match_number in range(27, 35)
+        )
+        quarter_finals = (
+            ProTourMatch(
+                type=self.match_type,
+                match_number=match_number,
+                stage='QF',
+            )
+            for match_number in range(35, 39)
+        )
+        semi_finals = (
+            ProTourMatch(
+                type=self.match_type,
+                match_number=match_number,
+                stage='SF',
+            )
+            for match_number in (39, 40)
+        )
+        finals = (
+            ProTourMatch(
+                type=self.match_type,
+                match_number=match_number,
+                stage=stage,
+            )
+            for match_number, stage in (
+                (
+                    41,
+                    '3/4',
+                ),
+                (
+                    42,
+                    'F',
+                ),
+            )
+        )
+        return chain(
+            round_of_18,
+            round_of_16,
+            quarter_finals,
+            semi_finals,
+            finals,
         )
