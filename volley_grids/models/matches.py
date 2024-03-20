@@ -12,10 +12,11 @@ TOURNAMENT_STAGE: TypeAlias = Literal[
     '5-8',
     'QF',
     '9-12',
+    'R12',
     'R16',
     '13-16',
-    '17-24',
-    '25-32',
+    '17-32',
+    'R24',
     'R32',
     '33-48',
     'R48',
@@ -34,6 +35,7 @@ class BaseMatch(BaseModel):
         score_team_one:    score of the match
         score_team_two:    score of the match
         winner:            winner of the match
+        looser:            looser of the match
         court_number:      number of the court where the match is played
         match_number:      number of the match
         stage:             stage of the tournament
@@ -49,6 +51,7 @@ class BaseMatch(BaseModel):
     score_team_one: int
     score_team_two: int
     winner: Team | None = None
+    looser: Team | None = None
     court_number: int | None = None
     match_number: int
     stage: TOURNAMENT_STAGE

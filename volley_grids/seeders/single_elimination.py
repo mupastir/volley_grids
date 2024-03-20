@@ -1,8 +1,6 @@
 from itertools import chain
 from typing import Generator
 
-from pydantic import TypeAdapter
-
 from volley_grids.models.matches import Match
 from volley_grids.models.teams import ByeTeam, Team
 from volley_grids.seeders.base_seeder import BaseSeeder
@@ -15,7 +13,6 @@ class SingleEliminationSeeder(BaseSeeder):
 
     stages_map = {32: 'R64', 16: 'R32', 8: 'R16', 4: 'QF', 2: 'SF'}
     grid_configurations = {8, 16, 32}
-    match_type_adapter = TypeAdapter(Match)
 
     def seed(self) -> list[Match]:
         """Seed the matches of the tournament
