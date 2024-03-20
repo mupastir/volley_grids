@@ -22,6 +22,7 @@ TOURNAMENT_STAGE: TypeAlias = Literal[
     'R48',
     '49-64',
     'R64',
+    'RR',
 ]
 MATCH_TYPE: TypeAlias = Literal['full', 'short']
 
@@ -85,6 +86,17 @@ class FullMatch(BaseMatch):
     score_team_one: int = Field(le=2, gt=0, default=0)
     score_team_two: int = Field(le=2, gt=0, default=0)
     type: Literal['full'] = 'full'
+
+
+PRO_TOUR_MATCH_STAGE: TypeAlias = Literal[
+    'F', 'SF', 'QF', 'R16', 'R18', 'Pool A', 'Pool B', 'Pool C', 'Pool D', 'Pool E', 'Pool F'
+]
+
+
+class ProTourMatch(FullMatch):
+    """Model of the Pro Tour match, which has a different stage"""
+
+    stage: PRO_TOUR_MATCH_STAGE
 
 
 Match = Annotated[Union[ShortMatch, FullMatch], Field(discriminator='type')]
