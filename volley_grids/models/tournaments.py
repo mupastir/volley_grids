@@ -4,7 +4,7 @@ from typing import Literal, TypeAlias
 from pydantic import BaseModel
 
 from volley_grids.models.matches import Match
-from volley_grids.models.teams import TEAM_GENDER, Team
+from volley_grids.models.teams import TEAM_GENDER, BaseTeam
 
 
 class TournamentType(StrEnum):
@@ -15,10 +15,11 @@ class TournamentType(StrEnum):
     RR = 'Round Robin'
     CH24 = 'Challenge 24'
     ELITE16 = 'Elite 16'
+    KOB = 'King of the Beach'
 
 
 TOURNAMENT_PLACES: TypeAlias = Literal['1', '2', '3', '4', '5-8', '9-12', '13-16', '17-24', '25-32', '33-48', '49-64']
-Participants: TypeAlias = list[Team]
+Participants: TypeAlias = list[BaseTeam]
 
 
 class TeamRestrictions(BaseModel):
@@ -33,7 +34,7 @@ class TeamRestrictions(BaseModel):
     max_age: int | None = None
     team_gender: TEAM_GENDER
 
-    def validate_team(self, team: Team) -> bool:
+    def validate_team(self, team: BaseTeam) -> bool:
         """Validate the team by the restrictions
 
         Args:
@@ -76,5 +77,5 @@ class Tournament(BaseModel):
     end_date: str
     type: TournamentType
     restrictions: TeamRestrictions
-    participants: list[Team] | None = None
+    participants: list[BaseTeam] | None = None
     matches: list[Match] | None = None

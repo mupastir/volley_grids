@@ -1,13 +1,13 @@
-from typing import Literal, TypeAlias
+from typing import Annotated, Literal, TypeAlias, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 
 from volley_grids.models.players import MenPlayer, Player, WomenPlayer
 
 TEAM_GENDER: TypeAlias = Literal['Men`s', 'Women`s', 'Mixed']
 
 
-class Team(BaseModel):
+class BaseTeam(BaseModel):
     """Base model of the team
 
     Attributes:
@@ -38,8 +38,20 @@ class Team(BaseModel):
         """
         return self.player_one.points + self.player_two.points
 
+    @property
+    def players(self) -> set[Player]:
+        """Return set of the players of the team
 
-class WomenTeam(Team):
+        Returns:
+            set[Player]: list of the players of the team
+        """
+        return {self.player_one, self.player_two}
+
+    def __hash__(self):
+        return hash(self.player_one.id) + hash(self.player_two.id)
+
+
+class WomenTeam(BaseTeam):
     """Model of the team, which both players sex are 'W'"""
 
     player_one: WomenPlayer
@@ -47,7 +59,7 @@ class WomenTeam(Team):
     gender: Literal['Women`s'] = 'Women`s'
 
 
-class MenTeam(Team):
+class MenTeam(BaseTeam):
     """Model of the team, which both players sex are 'M'"""
 
     player_one: MenPlayer
@@ -55,15 +67,29 @@ class MenTeam(Team):
     gender: Literal['Men`s'] = 'Men`s'
 
 
-class MixedTeam(Team):
+class MixedTeam(BaseTeam):
     """Model of the team, which one player is 'M' and the other is 'W'"""
 
-    player_one: WomenPlayer
-    player_two: MenPlayer
+    player_one: WomenPlayer | MenPlayer
+    player_two: MenPlayer | WomenPlayer
     gender: Literal['Mixed'] = 'Mixed'
 
+    @model_validator(mode='after')
+    def validate_player_genders(self) -> 'MixedTeam':
+        """Validate players of the team on gender. If both players are the same gender, raise ValueError
 
-class ByeTeam(Team):
+        Returns:
+            MixedTeam: validated team
+
+        Raises:
+            ValueError: if both players
+        """
+        if type(self.player_one).__name__ is type(self.player_two).__name__:
+            raise ValueError('Team should be consisted of the players of different genders')
+        return self
+
+
+class ByeTeam(BaseTeam):
     """Model of the bye team which is used in the tournament to fill the empty slots for minimal participants
     https://en.wikipedia.org/wiki/Bye_(sports)
 
@@ -92,3 +118,6 @@ class ByeTeam(Team):
             int: sum of the points of the team, always 0
         """
         return 0
+
+
+Team = Annotated[Union[MenTeam, WomenTeam, MixedTeam], Field(discriminator='gender')]

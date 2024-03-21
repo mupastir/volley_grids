@@ -41,6 +41,9 @@ class Player(BaseModel):
         """
         return f'{self.name} {self.surname}'
 
+    def __hash__(self):
+        return hash(self.id)
+
 
 class WomenPlayer(Player):
     """Model of the player, which sex is 'W'"""

@@ -3,7 +3,7 @@ from typing import Annotated, Literal, TypeAlias, Union
 
 from pydantic import BaseModel, Field
 
-from volley_grids.models.teams import Team
+from volley_grids.models.teams import BaseTeam
 
 TOURNAMENT_STAGE: TypeAlias = Literal[
     'F',
@@ -45,14 +45,16 @@ class BaseMatch(BaseModel):
         type:              type of the match
     """
 
-    team_one: Team | None = None
-    team_two: Team | None = None
+    team_one: BaseTeam | None = None
+    team_two: BaseTeam | None = None
     team_one_match_from: int | None = None
     team_two_match_from: int | None = None
     score_team_one: int
     score_team_two: int
-    winner: Team | None = None
-    looser: Team | None = None
+    first_set_score_team_one: int | None = Field(gt=0, default=None)
+    first_set_score_team_two: int | None = Field(gt=0, default=None)
+    winner: BaseTeam | None = None
+    looser: BaseTeam | None = None
     court_number: int | None = None
     match_number: int
     stage: TOURNAMENT_STAGE
@@ -71,6 +73,9 @@ class BaseMatch(BaseModel):
             return None
         return (self.end_time - self.start_time).seconds // 60
 
+    def __hash__(self):
+        return hash(self.team_one) + hash(self.team_two)
+
 
 class ShortMatch(BaseMatch):
     """Model of the short match, which plays only one set"""
@@ -85,6 +90,10 @@ class FullMatch(BaseMatch):
 
     score_team_one: int = Field(le=2, gt=0, default=0)
     score_team_two: int = Field(le=2, gt=0, default=0)
+    second_set_score_team_one: int | None = Field(gt=0, default=None)
+    second_set_score_team_two: int | None = Field(gt=0, default=None)
+    third_set_score_team_one: int | None = Field(gt=0, default=None)
+    third_set_score_team_two: int | None = Field(gt=0, default=None)
     type: Literal['full'] = 'full'
 
 

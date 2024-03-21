@@ -2,7 +2,7 @@ from itertools import chain
 from typing import Generator
 
 from volley_grids.models.matches import Match
-from volley_grids.models.teams import ByeTeam, Team
+from volley_grids.models.teams import BaseTeam, ByeTeam
 from volley_grids.seeders.base_seeder import BaseSeeder
 
 
@@ -88,7 +88,7 @@ class DoubleEliminationSeeder(BaseSeeder):
         return [ByeTeam(gender=self.tournament.restrictions.team_gender) for _ in range(number)]
 
     def first_winner_round_matches_generator(
-        self, best_ranked_teams: list[Team], least_ranked_teams: list[Team], grid_dimension: int
+        self, best_ranked_teams: list[BaseTeam], least_ranked_teams: list[BaseTeam], grid_dimension: int
     ) -> Generator[Match, None, None]:
         """Generate the first round matches
 

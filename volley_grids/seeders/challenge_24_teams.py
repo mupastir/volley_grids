@@ -2,7 +2,7 @@ from itertools import chain
 from typing import Iterable
 
 from volley_grids.models.matches import ProTourMatch
-from volley_grids.models.teams import Team
+from volley_grids.models.teams import BaseTeam
 from volley_grids.seeders.base_seeder import BaseSeeder
 
 
@@ -27,7 +27,9 @@ class Challenge24Seeder(BaseSeeder):
             )
         )
 
-    def seed_pool_games(self, pools: dict[str, tuple[Team, Team, Team, Team]]) -> Iterable[ProTourMatch]:
+    def seed_pool_games(
+        self, pools: dict[str, tuple[BaseTeam, BaseTeam, BaseTeam, BaseTeam]]
+    ) -> Iterable[ProTourMatch]:
         """Seed the matches of the pool games"""
         first_games_in_pool = (
             ProTourMatch(
