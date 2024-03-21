@@ -1,3 +1,5 @@
+"""This module contains helper functions for the volley_grids app"""
+
 from typing import Literal
 
 from volley_grids.models.players import MenPlayer, Player, WomenPlayer

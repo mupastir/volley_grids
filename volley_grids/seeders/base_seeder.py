@@ -1,3 +1,4 @@
+"""Module with models of the matches"""
 from abc import ABC, abstractmethod
 from typing import Literal
 

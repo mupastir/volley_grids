@@ -1,3 +1,4 @@
+"""Module with matches seeder for the round-robin tournament"""
 from itertools import combinations
 
 from volley_grids.models.matches import Match

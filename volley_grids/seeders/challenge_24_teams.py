@@ -1,3 +1,4 @@
+"""Module for seeding the matches of the challenge 24 teams tournament"""
 from itertools import chain
 from typing import Iterable
 

@@ -1,3 +1,4 @@
+"""Module with models of the tournaments"""
 from enum import StrEnum
 from typing import Literal, TypeAlias
 

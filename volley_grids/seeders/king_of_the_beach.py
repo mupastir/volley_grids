@@ -1,3 +1,4 @@
+"""Seeder for the king of the beach tournament"""
 from itertools import combinations
 from typing import Literal
 

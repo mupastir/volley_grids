@@ -1,3 +1,4 @@
+"""Module with models of the players"""
 from typing import Literal, TypeAlias
 from uuid import uuid4
 

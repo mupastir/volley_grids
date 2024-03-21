@@ -1,3 +1,4 @@
+"""Module with models of the matches"""
 from datetime import datetime
 from typing import Annotated, Literal, TypeAlias, Union
 

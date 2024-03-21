@@ -1,3 +1,4 @@
+"""Module for seeding the matches of the single elimination tournament"""
 from itertools import chain
 from typing import Generator
 

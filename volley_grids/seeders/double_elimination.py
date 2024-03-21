@@ -1,3 +1,4 @@
+"""Module with models of the matches"""
 from itertools import chain
 from typing import Generator
 
