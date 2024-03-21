@@ -76,6 +76,9 @@ class BaseMatch(BaseModel):
     def __hash__(self):
         return hash(self.team_one) + hash(self.team_two)
 
+    def __repr__(self):
+        return f'{self.team_one.__repr__()} VS {self.team_two.__repr__()}'
+
 
 class ShortMatch(BaseMatch):
     """Model of the short match, which plays only one set"""

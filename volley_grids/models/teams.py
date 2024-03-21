@@ -50,6 +50,9 @@ class BaseTeam(BaseModel):
     def __hash__(self):
         return hash(self.player_one.id) + hash(self.player_two.id)
 
+    def __repr__(self):
+        return f'{self.player_one.__repr__()}/{self.player_two.__repr__()}'
+
 
 class WomenTeam(BaseTeam):
     """Model of the team, which both players sex are 'W'"""

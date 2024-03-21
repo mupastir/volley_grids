@@ -5,11 +5,10 @@ from pydantic import TypeAdapter
 
 from volley_grids.misc.helpers import get_team_gender
 from volley_grids.models.matches import Match
-from volley_grids.models.players import Player
+from volley_grids.models.players import MenPlayer, WomenPlayer
 from volley_grids.models.teams import Team
-from volley_grids.models.tournaments import Tournament
 
-KingOfTheBeachParticipants = tuple[Player]
+KingOfTheBeachParticipants = tuple[WomenPlayer | MenPlayer]
 
 
 class KingOfTheBeachSeeder:
@@ -22,17 +21,13 @@ class KingOfTheBeachSeeder:
     match_type_adapter = TypeAdapter(Match)
     team_type_adapter = TypeAdapter(Team)
 
-    def __init__(
-        self, tournament: Tournament, participants: KingOfTheBeachParticipants, match_type: Literal['full', 'short']
-    ) -> None:
+    def __init__(self, participants: KingOfTheBeachParticipants, match_type: Literal['full', 'short']) -> None:
         """Initialize the seeder
 
         Args:
-            tournament: Tournament to seed
             participants: Participants of the tournament
             match_type: Type of the match, full or short
         """
-        self.tournament = tournament
         self.participants = participants
         self.match_type = match_type
         self.teams = []

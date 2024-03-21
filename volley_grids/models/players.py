@@ -27,10 +27,10 @@ class Player(BaseModel):
 
     id: str = Field(default_factory=lambda: str(uuid4()))
     gender: GENDER
-    age: int
+    age: int | None = None
     name: str
     surname: str
-    points: int
+    points: int = 0
 
     @property
     def full_name(self) -> str:
@@ -43,6 +43,9 @@ class Player(BaseModel):
 
     def __hash__(self):
         return hash(self.id)
+
+    def __repr__(self):
+        return f'{self.surname} {self.name[0]}.'
 
 
 class WomenPlayer(Player):
