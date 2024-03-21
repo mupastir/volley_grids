@@ -22,7 +22,7 @@ jobs:
       
       - name: Install deps
         run: |
-          apt-get update && apt-get -y install uv
+          sudo apt-get update && sudo apt-get -y install uv
           uv venv
           . venv/bin/activate
           uv pip install -e .[dev]
@@ -45,7 +45,7 @@ jobs:
 
     - name: install deps
       run: |
-          apt-get update && apt-get -y install uv ruff
+          sudo apt-get update && sudo apt-get -y install uv ruff
           uv venv
           . venv/bin/activate
           uv pip install -e .[dev]
