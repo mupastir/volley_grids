@@ -16,13 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup python
-        uses: actions/setup-python@b5.0.0
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: 3.8
       
       - name: Install deps
         run: |
-          apt-get update && apt-get -y uv
+          apt-get update && apt-get -y install uv
           uv venv
           . venv/bin/activate
           uv pip install -e .[dev]
@@ -45,7 +45,7 @@ jobs:
 
     - name: install deps
       run: |
-          apt-get update && apt-get -y uv ruff
+          apt-get update && apt-get -y install uv ruff
           uv venv
           . venv/bin/activate
           uv pip install -e .[dev]
