@@ -35,7 +35,7 @@ classifiers = [
   'Topic :: Software Development :: Libraries :: Python Modules',
   'Topic :: Other/Nonlisted Topic',
 ]
-requires-python = '>=3.8'
+requires-python = '>=3.11'
 dependencies = [
     "pydantic==2.6.3",
 ]
@@ -50,7 +50,7 @@ Changelog = 'https://docs.volley-grids.dev/latest/changelog/'
 
 [tool.ruff]
 line-length = 120
-target-version = 'py38'
+target-version = 'py311'
 extend-exclude = ['tests/mypy/outputs']
 
 [tool.ruff.lint]
