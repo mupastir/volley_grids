@@ -1,6 +1,6 @@
-"""Setup script for the package. Use the CI_COMMIT_TAG environment variable as the version."""
+"""Setup script for the package. Use the GITHUB_REF_NAME environment variable as the version."""
 import os
 
 from setuptools import setup
 
-setup(version=os.getenv('CI_COMMIT_TAG', 'patch'))
+setup(version=os.getenv('GITHUB_REF_NAME', 'patch'))
