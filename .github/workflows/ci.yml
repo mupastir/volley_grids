@@ -27,7 +27,7 @@ jobs:
           uv venv
           . .venv/bin/activate
           uv --version
-          uv pip install -e .[dev]
+          uv pip install -r dev-requirements.txt
 
       - name: Run tests
         run: |
@@ -50,7 +50,7 @@ jobs:
           pip install uv ruff
           uv venv
           . .venv/bin/activate
-          uv pip install -e .[dev]
+          uv pip install -r dev-requirements.txt
 
     - name: run ruff check
       run: ruff check
