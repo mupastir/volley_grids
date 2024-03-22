@@ -1,6 +1,6 @@
 """Module with models of the matches"""
+from collections.abc import Generator
 from itertools import chain
-from typing import Generator
 
 from volley_grids.models.matches import Match
 from volley_grids.models.teams import BaseTeam, ByeTeam

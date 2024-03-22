@@ -1,5 +1,5 @@
 """Module with models of the teams for the volleyball tournament"""
-from typing import Annotated, Literal, TypeAlias, Union
+from typing import Annotated, Literal, TypeAlias
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -124,4 +124,4 @@ class ByeTeam(BaseTeam):
         return 0
 
 
-Team = Annotated[Union[MenTeam, WomenTeam, MixedTeam], Field(discriminator='gender')]
+Team = Annotated[MenTeam | WomenTeam | MixedTeam, Field(discriminator='gender')]
