@@ -31,7 +31,8 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m tests --cov=volley_grids --cov-report=xml --cov-report=term-missing --cov-report=html --cov-append
+          . .venv/bin/activate
+          pytest --cov=volley_grids --cov-report=xml --cov-report=term-missing --cov-report=html --cov-append
       
       - uses: actions/upload-artifact@v4
         with:
@@ -44,6 +45,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Setup python
+      uses: actions/setup-python@v5.0.0
+      with:
+        python-version: 3.8
 
     - name: install deps
       run: |
