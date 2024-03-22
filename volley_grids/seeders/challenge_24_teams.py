@@ -1,6 +1,6 @@
 """Module for seeding the matches of the challenge 24 teams tournament"""
+from collections.abc import Iterable
 from itertools import chain
-from typing import Iterable
 
 from volley_grids.models.matches import ProTourMatch
 from volley_grids.models.teams import BaseTeam

@@ -1,6 +1,6 @@
 """Module with models of the matches"""
 from datetime import datetime
-from typing import Annotated, Literal, TypeAlias, Union
+from typing import Annotated, Literal, TypeAlias
 
 from pydantic import BaseModel, Field
 
@@ -112,4 +112,4 @@ class ProTourMatch(FullMatch):
     stage: PRO_TOUR_MATCH_STAGE
 
 
-Match = Annotated[Union[ShortMatch, FullMatch], Field(discriminator='type')]
+Match = Annotated[ShortMatch | FullMatch, Field(discriminator='type')]
