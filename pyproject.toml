@@ -10,6 +10,7 @@ description = "Competition grids for volleyball tournaments"
 authors = [
     {name = 'Oleh Perlovskyi', email = 'mupastir@gmail.com'}
 ]
+readme = {file = "README.md", content-type = "text/markdown"}
 classifiers = [
   'Development Status :: 3 - Alpha',
   'Programming Language :: Python',
