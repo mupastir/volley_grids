@@ -10,7 +10,6 @@ description = "Competition grids for volleyball tournaments"
 authors = [
     {name = 'Oleh Perlovskyi', email = 'mupastir@gmail.com'}
 ]
-license = "MIT"
 classifiers = [
   'Development Status :: 3 - Alpha',
   'Programming Language :: Python',
@@ -40,7 +39,7 @@ requires-python = '>=3.8'
 dependencies = [
     "pydantic==2.6.3",
 ]
-dynamic = ['version', 'readme']
+dynamic = ['version']
 
 [project.urls]
 Homepage = 'https://github.com/mupastir/volley-grids'
